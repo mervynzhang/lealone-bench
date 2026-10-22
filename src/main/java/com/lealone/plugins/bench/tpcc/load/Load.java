@@ -164,7 +164,7 @@ public class Load implements TpccConstants {
                 w_zip = Util.makeAlphaString(9, 9);
 
                 w_tax = (Util.randomNumber(10, 20) / 100.0);
-                w_ytd = 3000000.00;
+                w_ytd = 300000.00;
 
                 // if (option_debug)
                 System.out.printf("WID = %d, Name= %s, Tax = %f\n", w_id, w_name, w_tax);
