@@ -179,7 +179,6 @@ public class TpccThread extends Thread implements TpccConstants {
     }
 
     private void doNextTransaction(int sequence) throws SQLException {
-        sequence = 3;
         if (sequence == 0) {
             doNeword();
         } else if (sequence == 1) {
