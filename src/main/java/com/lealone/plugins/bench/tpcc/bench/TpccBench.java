@@ -218,8 +218,14 @@ public class TpccBench extends TpccConfig {
     private void stopThreads() {
         stopped = true;
         try {
+            // 总共最多等30秒，不能每个线程都等30秒
+            long deadline = System.currentTimeMillis() + 30 * 1000;
             for (int i = 0; i < numConn; i++) {
-                threads[i].join(30 * 1000);
+                long remaining = deadline - System.currentTimeMillis();
+                if (remaining <= 0) {
+                    break;
+                }
+                threads[i].join(remaining);
             }
             System.out.println("TPCC THREADS STOPPED");
         } catch (InterruptedException e) {

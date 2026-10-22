@@ -358,6 +358,10 @@ public class TpccThread extends Thread implements TpccConstants {
     }
 
     public boolean handleResult(long beginTime, int result, int tIndex) {
+        if (TpccBench.stopped) {
+            // 压测已经结束，不用再重试
+            return true;
+        }
         if (result >= 1) {
             if (TpccBench.counting_on) {
                 long rt = System.currentTimeMillis() - beginTime;
