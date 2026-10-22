@@ -347,8 +347,6 @@ public class TpccThread extends Thread implements TpccConstants {
         int level = Util.randomNumber(10, 20);
         long beginTime = System.currentTimeMillis();
         for (int i = 0; i < MAX_RETRY; i++) {
-            // slev.slev_ps_async(w_id, d_id, level, beginTime, this);
-            // int result = slev.slev(w_id, d_id, level);
             int result = slev.slev_ps(w_id, d_id, level);
             if (handleResult(beginTime, result, 4)) {
                 return;
