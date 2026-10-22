@@ -9,7 +9,7 @@ w_street_2 varchar(20),
 w_city varchar(20), 
 w_state char(2), 
 w_zip char(9), 
-w_tax decimal(4,2), 
+w_tax decimal(4,4), 
 w_ytd decimal(12,2),
 primary key (w_id) );
 
@@ -24,7 +24,7 @@ d_street_2 varchar(20),
 d_city varchar(20), 
 d_state char(2), 
 d_zip char(9), 
-d_tax decimal(4,2), 
+d_tax decimal(4,4), 
 d_ytd decimal(12,2), 
 d_next_o_id int,
 primary key (d_w_id, d_id) );
@@ -46,13 +46,13 @@ c_zip char(9),
 c_phone char(16), 
 c_since datetime, 
 c_credit char(2), 
-c_credit_lim bigint, 
-c_discount decimal(4,2), 
+c_credit_lim decimal(12,2), 
+c_discount decimal(4,4), 
 c_balance decimal(12,2), 
 c_ytd_payment decimal(12,2), 
 c_payment_cnt smallint, 
 c_delivery_cnt smallint, 
-c_data varchar, --text
+c_data varchar(500)
 PRIMARY KEY(c_w_id, c_d_id, c_id) );
 
 drop table if exists history;

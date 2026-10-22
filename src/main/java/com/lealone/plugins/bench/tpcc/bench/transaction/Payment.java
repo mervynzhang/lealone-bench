@@ -225,12 +225,12 @@ public class Payment implements TpccConstants {
                         }
                     }
 
-                    // TODO: c_new_data is never used - this is a bug ported exactly from the original code
-                    c_new_data = String.format("| %d %d %d %d %d $%f %s %s", c_id, c_d_id, c_w_id, d_id,
-                            w_id, h_amount, currentTimeStamp.toString(), c_data);
-
-                    // TODO: fix this - causes index out of bounds exceptions
-                    // c_new_data = ( c_new_data + c_data.substring(0, (500 - c_new_data.length()) ) );
+                    // TPC-C要求c_data最长500个字符，超出时截断
+                    c_new_data = String.format("| %d %d %d %d %d $%.2f %s %s", c_id, c_d_id, c_w_id,
+                            d_id, w_id, h_amount, currentTimeStamp.toString(), c_data);
+                    if (c_new_data.length() > 500) {
+                        c_new_data = c_new_data.substring(0, 500);
+                    }
 
                     proceed = 8;
                     if (TRACE)
