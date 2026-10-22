@@ -21,6 +21,8 @@ public class TpccBench extends TpccConfig {
         tpccBench.parseArgs(args);
         tpccBench.runBenchmark();
         System.out.println("Terminating process now");
+        // 客户端和调度器的线程不是守护线程，不显式退出的话压测结束进程也不会结束
+        System.exit(0);
     }
 
     private static final String RAMPUP_TIME = "rampup_time";
