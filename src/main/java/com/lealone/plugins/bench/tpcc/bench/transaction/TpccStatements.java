@@ -68,10 +68,14 @@ public class TpccStatements implements TpccConstants {
                         + "FROM customer WHERE c_w_id = ? AND c_d_id = ? AND c_id = ? FOR UPDATE");
         pStmts[16] = prepareStatement(
                 "SELECT c_data FROM customer WHERE c_w_id = ? AND c_d_id = ? AND c_id = ?");
-        pStmts[17] = prepareStatement("UPDATE customer SET c_balance = ?, c_data = ? "
-                + "WHERE c_w_id = ? AND c_d_id = ? AND c_id = ?");
+        pStmts[17] = prepareStatement(
+                "UPDATE customer SET c_balance = ?, c_ytd_payment = c_ytd_payment + ?,"
+                        + " c_payment_cnt = c_payment_cnt + 1, c_data = ?"
+                        + " WHERE c_w_id = ? AND c_d_id = ? AND c_id = ?");
         pStmts[18] = prepareStatement(
-                "UPDATE customer SET c_balance = ? WHERE c_w_id = ? AND c_d_id = ? AND c_id = ?");
+                "UPDATE customer SET c_balance = ?, c_ytd_payment = c_ytd_payment + ?,"
+                        + " c_payment_cnt = c_payment_cnt + 1"
+                        + " WHERE c_w_id = ? AND c_d_id = ? AND c_id = ?");
         pStmts[19] = prepareStatement(
                 "INSERT INTO history(h_c_d_id, h_c_w_id, h_c_id, h_d_id, h_w_id, h_date, h_amount, h_data) "
                         + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)");

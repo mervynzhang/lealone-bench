@@ -208,7 +208,7 @@ public class Payment implements TpccConstants {
                 }
             }
 
-            c_balance += h_amount;
+            c_balance -= h_amount;
 
             if (c_credit != null) {
                 if (c_credit.contains("BC")) {
@@ -239,10 +239,11 @@ public class Payment implements TpccConstants {
                                 + " AND c_id = " + c_id);
                     // System.out.print("Executed UPDATE.\n");
                     pStmts.getStatement(17).setFloat(1, c_balance);
-                    pStmts.getStatement(17).setString(2, c_data);
-                    pStmts.getStatement(17).setInt(3, c_w_id);
-                    pStmts.getStatement(17).setInt(4, c_d_id);
-                    pStmts.getStatement(17).setInt(5, c_id);
+                    pStmts.getStatement(17).setFloat(2, h_amount);
+                    pStmts.getStatement(17).setString(3, c_new_data);
+                    pStmts.getStatement(17).setInt(4, c_w_id);
+                    pStmts.getStatement(17).setInt(5, c_d_id);
+                    pStmts.getStatement(17).setInt(6, c_id);
                     pStmts.getStatement(17).executeUpdate();
                 } else {
                     proceed = 9;
@@ -250,9 +251,10 @@ public class Payment implements TpccConstants {
                         logger.trace("UPDATE customer SET c_balance = " + c_balance + " WHERE c_w_id = "
                                 + c_w_id + " AND c_d_id = " + c_d_id + " AND c_id = " + c_id);
                     pStmts.getStatement(18).setFloat(1, c_balance);
-                    pStmts.getStatement(18).setInt(2, c_w_id);
-                    pStmts.getStatement(18).setInt(3, c_d_id);
-                    pStmts.getStatement(18).setInt(4, c_id);
+                    pStmts.getStatement(18).setFloat(2, h_amount);
+                    pStmts.getStatement(18).setInt(3, c_w_id);
+                    pStmts.getStatement(18).setInt(4, c_d_id);
+                    pStmts.getStatement(18).setInt(5, c_id);
                     pStmts.getStatement(18).executeUpdate();
                 }
             } else {
@@ -261,15 +263,15 @@ public class Payment implements TpccConstants {
                     logger.trace("UPDATE customer SET c_balance = " + c_balance + " WHERE c_w_id = "
                             + c_w_id + " AND c_d_id = " + c_d_id + " AND c_id = " + c_id);
                 pStmts.getStatement(18).setFloat(1, c_balance);
-                pStmts.getStatement(18).setInt(2, c_w_id);
-                pStmts.getStatement(18).setInt(3, c_d_id);
-                pStmts.getStatement(18).setInt(4, c_id);
+                pStmts.getStatement(18).setFloat(2, h_amount);
+                pStmts.getStatement(18).setInt(3, c_w_id);
+                pStmts.getStatement(18).setInt(4, c_d_id);
+                pStmts.getStatement(18).setInt(5, c_id);
                 pStmts.getStatement(18).executeUpdate();
             }
 
             // PostgreSQL不支持ERROR: invalid byte sequence for encoding "UTF8": 0x00
-            // h_data = h_data + '\0' + d_name + ' ' + ' ' + ' ' + ' ' + '\0';
-            h_data = h_data + '|' + d_name + ' ' + ' ' + ' ' + ' ' + '|';
+            h_data = w_name + " " + d_name;
 
             proceed = 10;
             if (TRACE)
