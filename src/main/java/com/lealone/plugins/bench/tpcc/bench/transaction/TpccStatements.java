@@ -171,7 +171,10 @@ public class TpccStatements implements TpccConstants {
             // Rollback if an aborted transaction, they are intentional in some percentage of cases.
             rollback();
         } catch (Throwable t) {
-            throw new RuntimeException(prefix + " error", t);
+            // 事务已经结束了再回滚会报"Transaction is closed"，
+            // 压测要按TPC-C重试事务，这里不能把整个压测停下来
+            if (TRACE)
+                logger.trace("rollback failed", t);
         }
     }
 }
