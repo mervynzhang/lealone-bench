@@ -48,20 +48,10 @@ public class Slev implements TpccConstants {
             pStmts.getStatement(33).setInt(1, w_id);
             pStmts.getStatement(33).setInt(2, d_id);
             pStmts.getStatement(33).setInt(3, d_next_o_id);
-            pStmts.getStatement(33).setInt(4, d_next_o_id);
+            pStmts.getStatement(33).setInt(4, d_next_o_id - 20);
+            pStmts.getStatement(33).setInt(5, w_id);
+            pStmts.getStatement(33).setInt(6, level);
             try (ResultSet rs = pStmts.getStatement(33).executeQuery()) {
-                while (rs.next()) {
-                    ol_i_id = rs.getInt(1);
-                }
-            }
-
-            if (TRACE)
-                logger.trace("SELECT count(*) FROM stock WHERE s_w_id = " + w_id + " AND s_i_id = "
-                        + ol_i_id + " AND s_quantity < " + level);
-            pStmts.getStatement(34).setInt(1, w_id);
-            pStmts.getStatement(34).setInt(2, ol_i_id);
-            pStmts.getStatement(34).setInt(3, level);
-            try (ResultSet rs = pStmts.getStatement(34).executeQuery()) {
                 if (rs.next()) {
                     rs.getInt(1);
                 }
