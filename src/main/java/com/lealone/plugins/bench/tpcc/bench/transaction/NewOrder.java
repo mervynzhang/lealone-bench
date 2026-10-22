@@ -316,7 +316,7 @@ public class NewOrder implements TpccConstants {
 
                 }
 
-                if (s_quantity > ol_quantity) {
+                if (s_quantity >= ol_quantity + 10) {
                     s_quantity = s_quantity - ol_quantity;
                 } else {
                     s_quantity = s_quantity - ol_quantity + 91;
