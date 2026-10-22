@@ -8,6 +8,7 @@ package com.lealone.plugins.bench.tpcc.load;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.Connection;
@@ -270,7 +271,7 @@ public class TpccLoad extends TpccConfig {
                 Statement stmt = conn.createStatement();
                 for (String sqlScript : sqlScripts) {
                     URL url = getConfigURL(sqlScript);
-                    File file = new File(url.toURI());
+                    File file = toFile(url);
                     String fileName = file.getCanonicalPath();
                     logger.info("RUNSCRIPT: " + fileName);
                     if (dbType == DbType.MYSQL || dbType == DbType.POSTGRESQL) {
@@ -296,6 +297,20 @@ public class TpccLoad extends TpccConfig {
                 throw new RuntimeException("run script error", e);
             }
         }
+    }
+
+    // 打成jar后资源在jar里面，RUNSCRIPT需要一个真实文件，先复制到临时文件
+    private static File toFile(URL url) throws Exception {
+        if ("file".equals(url.getProtocol())) {
+            return new File(url.toURI());
+        }
+        File file = File.createTempFile("tpcc-", ".sql");
+        file.deleteOnExit();
+        try (InputStream in = url.openStream()) {
+            java.nio.file.Files.copy(in, file.toPath(),
+                    java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
+        return file;
     }
 
     private static void showUsage() {
