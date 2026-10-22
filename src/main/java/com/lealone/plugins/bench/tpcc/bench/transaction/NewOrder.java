@@ -308,7 +308,7 @@ public class NewOrder implements TpccConstants {
 
                 stock[ol_num_seq[ol_number - 1]] = s_quantity;
 
-                if ((i_data.contains("original")) && (s_data.contains("original"))) {
+                if ((i_data.contains("ORIGINAL")) && (s_data.contains("ORIGINAL"))) {
                     bg[ol_num_seq[ol_number - 1]] = "B";
 
                 } else {

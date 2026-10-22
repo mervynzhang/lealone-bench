@@ -69,7 +69,7 @@ public class Load implements TpccConstants {
             i_data = Util.makeAlphaString(26, 50);
             if (orig[i_id] != 0) {
                 pos = Util.randomNumber(0, i_data.length() - 8);
-                i_data = i_data.substring(0, pos) + "original" + i_data.substring(pos + 8);
+                i_data = i_data.substring(0, pos) + "ORIGINAL" + i_data.substring(pos + 8);
             }
 
             /*System.out.printf("IID = %d, Name= %s, Price = %f\n",
@@ -326,9 +326,9 @@ public class Load implements TpccConstants {
 
             s_data = Util.makeAlphaString(26, 50);
             // sdatasize = s_data.length();
-            if (orig[s_i_id] != 0) {// TODO:Change this later
-                // pos = Util.randomNumber(0, sdatasize - 8);
-                s_data = "original";
+            if (orig[s_i_id] != 0) {
+                pos = Util.randomNumber(0, s_data.length() - 8);
+                s_data = s_data.substring(0, pos) + "ORIGINAL" + s_data.substring(pos + 8);
             }
             /*EXEC SQL INSERT INTO
                                stock
