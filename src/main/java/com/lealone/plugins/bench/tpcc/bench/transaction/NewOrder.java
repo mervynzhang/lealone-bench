@@ -327,8 +327,10 @@ public class NewOrder implements TpccConstants {
                             + ol_i_id + " AND s_w_id = " + ol_supply_w_id);
                 final PreparedStatement pstmt7 = pStmts.getStatement(7);
                 pstmt7.setInt(1, s_quantity);
-                pstmt7.setInt(2, ol_i_id);
-                pstmt7.setInt(3, ol_supply_w_id);
+                pstmt7.setInt(2, ol_quantity);
+                pstmt7.setInt(3, ol_supply_w_id == w_id ? 0 : 1); // s_remote_cnt
+                pstmt7.setInt(4, ol_i_id);
+                pstmt7.setInt(5, ol_supply_w_id);
                 pstmt7.executeUpdate();
 
                 ol_amount = ol_quantity * i_price;
