@@ -154,7 +154,8 @@ public class TpccBench extends TpccConfig {
         System.out.printf("     [rampup]: %d (sec.)\n", rampupTime);
         System.out.printf("    [measure]: %d (sec.)\n", measureTime);
 
-        Util.seqInit(10, 10, 1, 1, 1);
+        // TPC-C要求的混合比例: NewOrder 45%, Payment 43%, OrderStatus/Delivery/StockLevel 各4%
+        Util.seqInit(45, 43, 4, 4, 4);
     }
 
     Connection[] connections;
