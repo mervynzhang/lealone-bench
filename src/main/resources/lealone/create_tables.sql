@@ -52,7 +52,7 @@ c_balance decimal(12,2),
 c_ytd_payment decimal(12,2), 
 c_payment_cnt smallint, 
 c_delivery_cnt smallint, 
-c_data varchar(500)
+c_data varchar(500),
 PRIMARY KEY(c_w_id, c_d_id, c_id) );
 
 drop table if exists history;
