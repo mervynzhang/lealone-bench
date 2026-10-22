@@ -331,7 +331,7 @@ public class NewOrder implements TpccConstants {
                 pstmt7.setInt(3, ol_supply_w_id);
                 pstmt7.executeUpdate();
 
-                ol_amount = ol_quantity * i_price * (1 + w_tax + d_tax) * (1 - c_discount);
+                ol_amount = ol_quantity * i_price;
                 amt[ol_num_seq[ol_number - 1]] = ol_amount;
 
                 if (TRACE)
